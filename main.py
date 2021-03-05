@@ -1,5 +1,5 @@
 import requests
-
+from datetime import datetime
 USERNAME = "krall"
 TOKEN = "asdf54dsafg64sdf"
 GRAPH_NAME = "graph1"
@@ -34,12 +34,26 @@ class HabitTracker:
         # Graph already created and visible at https://pixe.la/v1/users/krall/graphs/graph1.html
         # requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
 
+        day = datetime.now().strftime("%Y%m%d")
+        # alternatively if we want to populate for an past day :
+        # day = datetime(year=2021, month=3, day=05).strftime("%Y%m%d")
+
         pixel_data = {
-            "date": "20210305",
+            "date": day,
             "quantity": "85",
         }
+        # testing updating an existing pixel so adding one is commented
+        # requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
 
-        requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
+        update_endpoint = f"{PIXEL_CREATION_ENDPOINT}/{day}"
+
+        new_pixel_data= {
+            "quantity": "70"
+        }
+        # testing deleting an existing pixel so not updating anymore
+        # requests.put(url=update_endpoint, json=new_pixel_data, headers=headers)
+
+        requests.delete(url=update_endpoint, headers=headers)
 
 
 if __name__ == '__main__':
