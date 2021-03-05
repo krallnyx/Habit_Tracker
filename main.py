@@ -2,8 +2,11 @@ import requests
 
 USERNAME = "krall"
 TOKEN = "asdf54dsafg64sdf"
+GRAPH_NAME = "graph1"
 PIXELA_ENDPOINT = "https://pixe.la/v1/users"
 GRAPH_ENDPOINT = F"{PIXELA_ENDPOINT}/{USERNAME}/graphs"
+PIXEL_CREATION_ENDPOINT = f"{GRAPH_ENDPOINT}/{GRAPH_NAME}"
+
 
 
 class HabitTracker:
@@ -18,7 +21,7 @@ class HabitTracker:
         # requests.post(url=PIXELA_ENDPOINT, json=user_params)
 
         graph_config = {
-            "id": "graph1",
+            "id": GRAPH_NAME,
             "name": "Cycling Graph",
             "unit": "Km",
             "type": "float",
@@ -30,6 +33,13 @@ class HabitTracker:
 
         # Graph already created and visible at https://pixe.la/v1/users/krall/graphs/graph1.html
         # requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
+
+        pixel_data = {
+            "date": "202210305",
+            "quantity": "85",
+        }
+
+        requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
 
 
 if __name__ == '__main__':
