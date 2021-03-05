@@ -35,7 +35,7 @@ class HabitTracker:
         # requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
 
         pixel_data = {
-            "date": "202210305",
+            "date": "20210305",
             "quantity": "85",
         }
 
